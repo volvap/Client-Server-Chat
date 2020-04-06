@@ -1,4 +1,5 @@
 import socket
+import threading
 
 
 PORT = 5050
@@ -7,18 +8,25 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 SERVER = "127.0.1.1"
 ADDR = (SERVER, PORT)
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(ADDR)
 
 def send(msg):
     message = msg.encode(FORMAT)
     client.send(message)
-    print(client.recv(2048).decode(FORMAT))
+    print(client.recv(1024).decode(FORMAT))
 
-send("Hello World!")
-input()
-send("Hello Everyone!")
-input()
-send("Hello Vlad!")
+def receiving_msges():
+    print(client.recv(1024).decode(FORMAT))
 
-send(DISCONNECT_MESSAGE)
+if __name__ == '__main__':
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect(ADDR)
+    #thread = threading.Thread(target=receiving_msges, args=())
+    #thread.start()
+
+    send("Hello World!")
+    input()
+    send("Hello Everyone!")
+    input()
+    send("Hello Vlad!")
+
+    send(DISCONNECT_MESSAGE)

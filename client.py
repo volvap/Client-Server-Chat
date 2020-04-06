@@ -12,17 +12,29 @@ ADDR = (SERVER, PORT)
 def send(msg):
     message = msg.encode(FORMAT)
     client.send(message)
+<<<<<<< HEAD
 
 def receiving_msges():
     while True:
         msg = client.recv(1024).decode(FORMAT)
         print(msg)
+=======
+    print(client.recv(1024).decode(FORMAT))
+
+def receiving_msges():
+    print(client.recv(1024).decode(FORMAT))
+>>>>>>> 1da408d4981852a56cced85b671e5d44b4d1de3d
 
 if __name__ == '__main__':
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(ADDR)
+<<<<<<< HEAD
     thread = threading.Thread(target=receiving_msges, args=())
     thread.start()
+=======
+    #thread = threading.Thread(target=receiving_msges, args=())
+    #thread.start()
+>>>>>>> 1da408d4981852a56cced85b671e5d44b4d1de3d
 
     send("Hello World!")
     input()

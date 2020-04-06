@@ -1,7 +1,22 @@
 import socket
+import threading
+import time
 
 
-if __name__ == '__main__':
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-        s.bind(('127.0.0.1',5050))
-        
+PORT = 5050
+SERVER = socket.gethostbyname(socket.gethostname())
+ADDR = (SERVER,PORT)
+
+server = socket.socket(socket.AF_INIT, socket.SOCK_STREAM)
+server.bind(ADDR)
+
+def handle_client(conn, addr):
+    pass
+
+
+def start():
+    pass
+
+
+print("[STARTING] server is starting....")
+start()

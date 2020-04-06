@@ -1,13 +1,11 @@
-#!/usr/bin/env python3
-
 import socket
 
-HOST = '127.0.0.1'  # The server's hostname or IP address
-PORT = 65432        # The port used by the server
+HEADER = 64
+PORT = 5050
+FORMAT = "utf-8"
+DISSCONNET_MESSAGE = "!DISCONNET"
+SERVER = "127.0.1.1"
+ADDR = (SERVER, PORT)
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    s.sendall(b'Hello, world')
-    data = s.recv(1024)
-
-print('Received', repr(data))
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(ADDR)

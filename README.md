@@ -6,7 +6,7 @@ Console client server chat based on sockets.
 
 Inspired by the idea of creating easy and secure chat application 😸
 
-## Screenshots/GIFs
+## Screenshots
 
 ![](tmux_record.gif)
 

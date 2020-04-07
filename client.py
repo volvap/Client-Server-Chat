@@ -28,7 +28,7 @@ if __name__ == '__main__':
     thread.start()
 
     while True:
-        text = input("Input message: ")
+        text = input()
         send(text)
         if text == DISCONNECT_MESSAGE:
             sys.exit()

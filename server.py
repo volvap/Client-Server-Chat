@@ -16,8 +16,8 @@ server.bind(ADDR)
 
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
-
     connected = True
+
     while connected:
         data = conn.recv(1024)
         data_length = len(data)
@@ -27,8 +27,7 @@ def handle_client(conn, addr):
                 connected = False
 
             print(f"[{addr}] {msg}")
-            broadcast(msg)
-
+            broadcast(msg, conn)
 
     conn.close()
     return None
@@ -45,8 +44,10 @@ def start():
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
 
-def broadcast(msg, prefix=""):
+def broadcast(msg, master_conn):
     for sock in client:
+        if sock == master_conn:
+            continue
         sock.send(bytes(msg,"utf-8"))
 
 

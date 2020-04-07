@@ -2,7 +2,7 @@
 
 Console client server chat based on sockets.
 
-# Motivation
+## Motivation
 
 Inspired by the idea of creating easy and secure chat application.
 

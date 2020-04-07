@@ -1,3 +1,3 @@
 # Client-Server-Chat
 
-![](tmux_record.git)
+![](tmux_record.gif)

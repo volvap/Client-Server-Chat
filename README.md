@@ -1,4 +1,4 @@
-# Client-Server-Chat
+# PyChat
 
 Console client server chat based on sockets.
 

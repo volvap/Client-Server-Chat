@@ -1,5 +1,5 @@
 import socket
-import threading
+import multiprocessing
 import time
 
 
@@ -9,7 +9,8 @@ ADDR = (SERVER,PORT)
 FORMAT = "utf-8"
 DISCONNET_MESSAGE = "!quit"
 
-client = {}
+
+client = multiprocessing.Manager().dict()
 
 
 def handle_client(conn, addr):
@@ -21,6 +22,7 @@ def handle_client(conn, addr):
         if data_length:
             msg = data.decode(FORMAT)
             if msg == DISCONNET_MESSAGE:
+                del client[addr]
                 connected = False
             print(f"[{addr}] {msg}")
             broadcast(msg, conn)
@@ -33,14 +35,14 @@ def start():
     print(f"[LISTENING] Server is listening on {SERVER}")
     while True:
         conn, addr = server.accept()
-        client[conn] = addr
-        p = threading.Thread(target=handle_client, args=(conn, addr))
+        client[addr] = conn
+        p = multiprocessing.Process(target=handle_client, args=(conn, addr))
         p.start()
         print(f"[ACTIVE CONNECTIONS] {len(client)}")
 
 
 def broadcast(msg, master_conn):
-    for sock in client:
+    for sock in client.keys():
         if sock == master_conn:
             continue
         sock.send(bytes(msg,"utf-8"))

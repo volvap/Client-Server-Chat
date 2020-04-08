@@ -2,23 +2,23 @@
 
 Console client server chat based on sockets. Current version works only on the local network. Uses module multiprocessing and shared dict by Manager()
 
-# Motivation
+## Motivation
 
 Inspired by the idea of creating easy and secure chat application 😸
 
-# Screenshots
+## Screenshots
 
 ![](tmux_record.gif)
 
-# Features
+## Features
 
 Will be updated soon
 
-# Contributing
+## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
-# License
+## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

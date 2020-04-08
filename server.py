@@ -1,5 +1,5 @@
 import socket
-from multiprocessing import Process
+import threading
 import time
 
 
@@ -34,9 +34,9 @@ def start():
     while True:
         conn, addr = server.accept()
         client[conn] = addr
-        p = Process(target=handle_client, args=(conn, addr))
+        p = threading.Thread(target=handle_client, args=(conn, addr))
         p.start()
-        print(f"[ACTIVE CONNECTIONS] {Process.activeCount() - 1}")
+        print(f"[ACTIVE CONNECTIONS] {len(client)}")
 
 
 def broadcast(msg, master_conn):

@@ -42,7 +42,7 @@ def start():
 
 
 def broadcast(msg, master_conn):
-    for sock in client.keys():
+    for sock in client.values():
         if sock == master_conn:
             continue
         sock.send(bytes(msg,"utf-8"))

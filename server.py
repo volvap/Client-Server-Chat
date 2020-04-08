@@ -1,5 +1,5 @@
 import socket
-import threading
+from multiprocessing import Process
 import time
 
 
@@ -11,13 +11,10 @@ DISCONNET_MESSAGE = "!quit"
 
 client = {}
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADDR)
 
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
     connected = True
-
     while connected:
         data = conn.recv(1024)
         data_length = len(data)
@@ -25,12 +22,10 @@ def handle_client(conn, addr):
             msg = data.decode(FORMAT)
             if msg == DISCONNET_MESSAGE:
                 connected = False
-
             print(f"[{addr}] {msg}")
             broadcast(msg, conn)
 
     conn.close()
-    return None
 
 
 def start():
@@ -39,9 +34,9 @@ def start():
     while True:
         conn, addr = server.accept()
         client[conn] = addr
-        thread = threading.Thread(target=handle_client, args=(conn, addr))
-        thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
+        p = Process(target=handle_client, args=(conn, addr))
+        p.start()
+        print(f"[ACTIVE CONNECTIONS] {Process.activeCount() - 1}")
 
 
 def broadcast(msg, master_conn):
@@ -52,5 +47,7 @@ def broadcast(msg, master_conn):
 
 
 if __name__ == '__main__':
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind(ADDR)
     print("[STARTING] server is starting....")
     start()

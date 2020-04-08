@@ -1,5 +1,5 @@
 import socket
-import threading
+from multiprocessing import Process
 import sys
 
 
@@ -18,17 +18,17 @@ def receiving_msges():
     while True:
         msg = client.recv(1024).decode(FORMAT)
         print(msg)
-        if msg == DISCONNECT_MESSAGE:
-            break
+
 
 if __name__ == '__main__':
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(ADDR)
-    thread = threading.Thread(target=receiving_msges, args=())
-    thread.start()
+    p = Process(target=receiving_msges, args=())
+    p.start()
 
     while True:
-        text = input()
+        text = input(">>>")
         send(text)
         if text == DISCONNECT_MESSAGE:
+            p.terminate()
             sys.exit()

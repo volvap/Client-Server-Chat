@@ -1,6 +1,6 @@
 # PyChat
 
-Console client server chat based on sockets. Current version works only on the local network.
+Console client server chat based on sockets. Current version works only on the local network. Uses module multiprocessing and shared dict by Manager()
 
 ## Motivation
 

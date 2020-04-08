@@ -1,6 +1,6 @@
 # PyChat
 
-Console client server chat based on sockets.
+Console client server chat based on sockets. Current version works only on the local network.
 
 ## Motivation
 

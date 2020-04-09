@@ -14,6 +14,7 @@ def send(msg):
     message = msg.encode(FORMAT)
     client.send(message)
 
+
 def receiving_msges():
     while True:
         msg = client.recv(1024).decode(FORMAT)

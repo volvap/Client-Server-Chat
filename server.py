@@ -1,11 +1,10 @@
 import socket
 import multiprocessing
-import time
 
 
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostname())
-ADDR = (SERVER,PORT)
+ADDR = (SERVER, PORT)
 FORMAT = "utf-8"
 DISCONNET_MESSAGE = "!quit"
 
@@ -25,7 +24,7 @@ def handle_client(conn, addr):
                 del client[addr]
                 connected = False
             print(f"[{addr}] {msg}")
-            broadcast(msg, conn)
+            broadcast(msg, addr)
 
     conn.close()
 
@@ -42,10 +41,10 @@ def start():
 
 
 def broadcast(msg, master_conn):
-    for sock in client.values():
-        if sock == master_conn:
+    for key, value in client.items():
+        if master_conn == key:
             continue
-        sock.send(bytes(msg,"utf-8"))
+        value.send(bytes(msg, "utf-8"))
 
 
 if __name__ == '__main__':
